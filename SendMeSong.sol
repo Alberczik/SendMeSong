@@ -26,10 +26,10 @@ contract SendMeSong {
         songName = _songName;
     }
 
-    function buySong (address _buyer) public returns(string memory) {
+    function buySong (address _buyer) public payable returns(string memory) { //logic needs review
         Buyer storage buyer = buyers[msg.sender];
         require(!buyers[_buyer].purchased, "You already purchased this song!");
-        // Code to check that the 0.001ETH was sent
+        require(msg.value == 0.001 ether, "The price is 0.001 ETH. Try again.");
         buyer.purchased = true;
         return songName;
     }
